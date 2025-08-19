@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="/images/favicon.png" type="">
+
+    <title> Feane </title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <!-- nice select  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+    <!-- font awesome style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+    <link href="/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="/css/responsive.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="/images/hero-bg.jpg" alt="">
+        </div>
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" asp-controller="Main" asp-action="Index">
+                        <span>Burger Land</span>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class=""> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto ">
+                            <li class="nav-item active">
+                                <a class="nav-link" asp-controller="Main" asp-action="Index" >Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="scrollBtn" style="cursor:pointer;">Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Main" asp-action="About">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="scrollBookBtn" style="cursor:pointer;">Book Table</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Main" asp-action="OrderNow" style="cursor:pointer;">Order Now</a>
+                            </li>
+                        </ul>
+                        <a class="btn mx-1" asp-controller="Cart" asp-action="CartIndex">
+                            <i class="fa-solid fa-cart-shopping custom-btn-style" style="font-size:20px;"></i>
+                        </a>
+
+
+
+
+                        <div class="user_option d-flex align-items-center">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn mx-1 custom-btn-style" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                <a class="btn mx-1 custom-btn-style" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            }
+                            else
+                            {
+                                <a class="btn mx-1 custom-btn-style" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                                @if (User.IsInRole("Admin"))
+                                {
+
+                                    <div class="dropdown mx-1">
+                                        <button class="btn btn-light dropdown-toggle" type="button" id="adminDropdown" data-toggle="dropdown">
+                                            Admin Panel
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <h6 class="dropdown-header">Roles</h6>
+                                            <a class="dropdown-item" asp-controller="Roles" asp-action="CreateRole">Create Role</a>
+                                            <a class="dropdown-item" asp-controller="Roles" asp-action="EditUsers" asp-route-roleName="Admin">Edit Admin Role</a>
+                                            <a class="dropdown-item" asp-controller="Roles" asp-action="RoleIndex">Manage Roles</a>
+                                            <div class="dropdown-divider"></div>
+                                            <h6 class="dropdown-header">Products</h6>
+                                            <a class="dropdown-item" asp-controller="Product" asp-action="AddProduct">Create Product</a>
+                                            <a class="dropdown-item" asp-controller="Product" asp-action="ManageProduct">Manage Product</a>
+                                            <div class="dropdown-divider"></div>
+                                            <h6 class="dropdown-header">Categories</h6>
+                                            <a class="dropdown-item" asp-controller="Category" asp-action="AddCategory">Create Category</a>
+                                            <a class="dropdown-item" asp-controller="Category" asp-action="ManageCategories">Manage Categories</a>
+                                        </div>
+                                    </div>
+
+                                }
+
+                            }
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+        </header>
+   
+   
+        
+   
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    
+   
+    <footer class="footer_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-col">
+                    <div class="footer_contact">
+                        <h4>
+                            Contact Us
+                        </h4>
+                        <div class="contact_link_box">
+                            <a href="">
+                                <i class="fa" aria-hidden="true"></i>
+                                <span>
+                                    Location
+                                </span>
+                            </a>
+                            <a href="">
+                                <i class="fa" aria-hidden="true"></i>
+                                <span>
+                                    Call +01 1234567890
+                                </span>
+                            </a>
+                            <a href="">
+                                <i class="fa" aria-hidden="true"></i>
+                                <span>
+                                    demo@gmail.com
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 footer-col">
+                    <div class="footer_detail">
+                        <a href="" class="footer-logo">
+                            Burger Land
+                        </a>
+                        <p>
+                                Crafted with passion, delivered with care
+                            </p>
+                    </div>
+                </div>
+                <div class="col-md-4 footer-col">
+                    <h4>
+                        Opening Hours
+                    </h4>
+                    <p>
+                        Everyday
+                    </p>
+                    <p>
+                        10.00 Am -10.00 Pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-info">
+                <p>
+                    &copy; <span id="displayYear"></span> All Rights Reserved
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- footer section -->
+    <!-- jQery -->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <!-- bootstrap js -->
+    <script src="/js/bootstrap.js"></script>
+    <!-- owl slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    </script>
+    <!-- isotope js -->
+    <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+    <!-- nice select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+    <!-- custom js -->
+    <script src="/js/custom.js"></script>
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+    </script>
+    <!-- End Google Map -->
+    @RenderSection("Scripts", required: false)
+        <script>
+            document.getElementById("scrollBtn").addEventListener("click", function() {
+                document.getElementById("our_menu").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            });
+        </script>
+        <script>
+            document.getElementById("scrollBookBtn").addEventListener("click", function() {
+                document.getElementById("our_booktable").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            });
+        </script>
+        <style>
+            .custom-btn-style {
+                color: #ffffff;
+                transition: color 0.3s;
+            }
+
+                .custom-btn-style:hover {
+                    color: #ffbe33;
+                }
+
+        </style>
+</body>
+
+</html>

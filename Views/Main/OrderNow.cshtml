@@ -1,0 +1,62 @@
+﻿@model ReservationSystem.Models.MainViewModel
+
+
+<div class="container mt-4">
+    <div class="card bg-transparent text-white shadow-lg border-0 rounded-3 p-3">
+        <div class="card-header bg-transparent text-center rounded-3 mb-3">
+            <h4 class="mb-0">Menu</h4>
+        </div>
+
+        <ul class="filters_menu nav nav-pills justify-content-center mb-4" id="our_menu">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link btn btn-secondary btn-sm rounded-pill active" data-id="0" type="button">All</button>
+            </li>
+            @foreach (var c in (Model?.Categories ?? Enumerable.Empty<Category>()))
+            {
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn btn-secondary btn-sm rounded-pill" data-id="@c.Id" type="button">@c.Name</button>
+                </li>
+            }
+        </ul>
+
+    </div>
+</div>
+
+
+
+
+<div id="products-list">
+    @await Html.PartialAsync("_ProductList", Model.Products)
+</div>
+
+<div class="text-center mt-3">
+    <button id="loadMoreBtn" class="btn btn-secondary rounded-pill">Load More</button>
+</div>
+
+@section Scripts {
+    <script>
+        var currentPage = 1;
+
+        $('#our_menu button').click(function() {
+            $('#our_menu button').removeClass('active');
+            $(this).addClass('active');
+
+            var categoryId = $(this).data('id');
+            currentPage = 1;
+
+            $.get('/Main/OrderNow', { page: currentPage, categoryId: categoryId }, function(html) {
+                $('#products-list').html(html);
+            });
+        });
+
+        $('#loadMoreBtn').click(function() {
+            currentPage++;
+
+            var categoryId = $('#our_menu button.active').data('id');
+
+            $.get('/Main/OrderNow', { page: currentPage, categoryId: categoryId }, function(html) {
+                $('#products-list').append(html);
+            });
+        });
+    </script>
+}

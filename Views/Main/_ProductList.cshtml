@@ -1,0 +1,87 @@
+﻿@model List<Product>
+
+<div class="food_section d-flex flex-wrap justify-content-center gap-3">
+    @foreach (var item in Model)
+    {
+        <div class="box" style="width: 300px; margin-bottom: 15px;">
+            <div class="img-box">
+                <img src="@item.ImagePath" alt="@item.Name" />
+            </div>
+            <div class="detail-box">
+                <h5>@item.Name</h5>
+                <p>Price: @item.Price EGP</p>
+                <form method="post" action="/Cart/AddToCart/@item.Id" class="mt-3">
+                    <button type="submit" class="btn btn-secondary w-100 rounded-pill">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .food_section .box {
+        position: relative;
+        margin-top: 25px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        overflow: hidden;
+        background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
+        color: #222831;
+        transition: box-shadow 0.3s ease;
+    }
+
+        .food_section .box:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .food_section .box .img-box {
+            background: #f1f2f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 215px;
+            border-radius: 0 0 0 45px;
+            margin: -1px;
+            padding: 25px;
+            overflow: hidden;
+        }
+
+            .food_section .box .img-box img {
+                max-width: 100%;
+                max-height: 145px;
+                transition: transform 0.2s ease;
+                object-fit: contain;
+            }
+
+        .food_section .box:hover .img-box img {
+            transform: scale(1.1);
+        }
+
+        .food_section .box .detail-box {
+            padding: 25px;
+            color:white;
+        }
+
+            .food_section .box .detail-box h5 {
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            .food_section .box .detail-box p {
+                font-size: 15px;
+                margin-bottom: 10px;
+            }
+
+            .food_section .box .detail-box h6 {
+                margin-top: 10px;
+            }
+
+        .food_section .box .options {
+            display: flex;
+            justify-content: space-between;
+        }
+
+    .food_section .box {
+        margin-right: 20px;
+    }
+</style>

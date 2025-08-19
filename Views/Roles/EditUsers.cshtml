@@ -1,0 +1,49 @@
+﻿@model ReservationSystem.Models.RoleUsersViewModel
+
+@{
+    ViewData["Title"] = "Manage Users in Role";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card bg-dark text-white shadow-lg border-0 rounded-3">
+                <div class="card-header bg-secondary text-white">
+                    <h3 class="mb-0">Manage Users in Role: @Model.RoleName</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="SaveEditUsers" method="post">
+                        <input type="hidden" asp-for="RoleName" />
+
+                        <table class="table table-dark table-hover align-middle">
+                            <thead class="table-secondary text-dark">
+                                <tr>
+                                    <th>User</th>
+                                    <th class="text-center">Is in Role?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Users.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.Users[i].UserName</td>
+                                        <td class="text-center">
+                                            <input asp-for="Users[i].IsSelected" class="form-check-input" />
+                                            <input type="hidden" asp-for="Users[i].UserId" />
+                                            <input type="hidden" asp-for="Users[i].UserName" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-dark">Save Changes</button>
+                            <a asp-action="Index" asp-controller="Role" class="btn btn-dark">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card bg-dark text-white shadow-lg border-0 rounded-3">
+                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">Roles</h3>
+                    <a asp-action="Create" class="btn btn-dark btn-sm">Create New Role</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-dark table-hover align-middle">
+                        <thead class="table-secondary text-dark">
+                            <tr>
+                                <th>Role Name</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model)
+                            {
+                                <tr>
+                                    <td>@role.Name</td>
+                                    <td class="text-center btn-dark">
+                                        <a asp-action="EditUsers" asp-route-roleName="@role.Name" class="btn btn-info btn-sm">
+                                            Manage Users
+                                        </a>
+                                        <form asp-action="DeleteRole" method="post" class="d-inline">
+                                            <input type="hidden" name="roleName" value="@role.Name" />
+                                            <button type="submit"
+                                                    class="btn btn-dark btn-sm"
+                                                    onclick="return confirm('Are you sure you want to delete the role @role.Name ?')">
+                                                <i class="bi bi-trash-fill me-1"></i> Delete
+                                            </button>
+                                        </form>
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

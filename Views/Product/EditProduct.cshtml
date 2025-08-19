@@ -1,0 +1,83 @@
+﻿@model ReservationSystem.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container mt-5 bg-dark text-white p-4 rounded">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-secondary text-white shadow-lg border-0 rounded-3">
+                <div class="card-header text-center">
+                    <h3 class="mb-0">Edit Product</h3>
+                </div>
+                <div class="card-body p-4">
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <p class="mb-0">@error.ErrorMessage</p>
+                            }
+                        </div>
+                    }
+
+                    <form asp-action="SaveEditProduct" asp-controller="Product" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control bg-dark text-white border-light" placeholder="Enter product name" />
+                            <span asp-validation-for="Name" class="text-warning"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label"></label>
+                            <input asp-for="Price" class="form-control bg-dark text-white border-light" placeholder="Enter price" />
+                            <span asp-validation-for="Price" class="text-warning"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Current Image</label><br />
+                            @if (!string.IsNullOrEmpty(Model.ImagePath))
+                            {
+                                <img src="@Model.ImagePath" alt="Product Image" class="img-thumbnail" style="max-width:150px;" />
+                            }
+                            else
+                            {
+                                <p class="text-light">No image uploaded.</p>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ImagePath" class="form-label">Image File Name (e.g. img6.png)</label>
+                            <input asp-for="ImagePath" class="form-control bg-dark text-white border-light" placeholder="Enter image file name" />
+                            <span asp-validation-for="ImagePath" class="text-warning"></span>
+                            <small class="form-text text-light">Image must be in wwwroot/Images folder</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CategoryId" class="form-label">Category</label>
+                            <select asp-for="CategoryId" class="form-select bg-dark text-white border-light" asp-items="ViewBag.Categories">
+                                <option value="">-- Select Category --</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-warning"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-lg">Update</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
